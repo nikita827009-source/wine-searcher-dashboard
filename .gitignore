@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# Environment secrets
+.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Scraped raw data (large, already imported to DB)
+wine_searcher_data.json
+wine_searcher_data.csv
+wine_searcher_converted.json
+
+# Debug/temp files
+wine_searcher*.html
+_proxy_ext.zip
+
+# Backup files
+*.orig
+*.new
+*.bak
+
+# Logs & reports
+winesearcher/wine-scraper/data/reports/
+winesearcher/wine-scraper/data/backups/
+
+# OS
+.DS_Store
+Thumbs.db

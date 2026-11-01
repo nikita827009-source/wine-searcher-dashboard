@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// SQLite has no enums: status fields are validated strings (see src/lib/constants.js).
+
+model Product {
+  id             Int      @id @default(autoincrement())
+  sourceKey      String   @unique // natural key: "id" from wine_dataset.json
+  sku            String   @unique // stable, assigned once at first import
+  name           String
+  normalizedName String
+  brand          String?
+  category       String
+  vintage        String?
+  region         String?
+  country        String?
+  bottleSize     String? // null = not recorded in source
+  packaging      String?
+  clientPrice    Float // Fine Liquors price
+  currency       String? // null = not recorded in source
+  metadata       Json?
+  sourceUpdatedAt DateTime? // JSON "lastUpdated": collection time, NOT a verification
+  importedAt     DateTime @default(now())
+  offers         Offer[]
+
+  @@index([category])
+  @@index([normalizedName])
+  @@index([brand])
+}
+
+model Vendor {
+  id                Int       @id @default(autoincrement())
+  name              String    @unique
+  website           String?
+  states            String? // comma list, only when verified
+  sourceType        String    @default("IMPORT") // IMPORT | API | FEED | MOCK
+  integrationStatus String    @default("NONE") // NONE | NOT_CONFIGURED | CONFIGURED | ERROR
+  lastSyncAt        DateTime?
+  offers            Offer[]
+}
+
+model Offer {
+  id                 Int       @id @default(autoincrement())
+  productId          Int
+  vendorId           Int
+  url                String? // only if verified; never fabricated
+  vendorProductId    String?
+  price              Float
+  currency           String?
+  bottleSize         String?
+  vintageMatch       String? // EXACT | UNKNOWN | MISMATCH
+  availability       String? // null = unknown
+  stockStatus        String?
+  shipping           Float?
+  tax                Float?
+  source             String // e.g. "import:wine_dataset.json", "mock", "winesearcher-api"
+  sourceReportedAt   DateTime?
+  observedAt         DateTime
+  lastVerifiedAt     DateTime? // null unless an authorized source confirmed it
+  verificationStatus String    @default("UNVERIFIED") // DEMO | UNVERIFIED | VERIFIED | STALE | FAILED
+  error              String?
+  location           String?
+  state              String?
+  rating             Float?
+  product            Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  vendor             Vendor    @relation(fields: [vendorId], references: [id])
+  history            PriceHistory[]
+
+  @@unique([productId, vendorId])
+  @@index([vendorId])
+  @@index([lastVerifiedAt])
+  @@index([verificationStatus])
+}
+
+model PriceHistory {
+  id            Int      @id @default(autoincrement())
+  offerId       Int
+  previousPrice Float?
+  price         Float
+  currency      String?
+  observedAt    DateTime
+  source        String
+  refreshJobId  Int?
+  offer         Offer    @relation(fields: [offerId], references: [id], onDelete: Cascade)
+  refreshJob    RefreshJob? @relation(fields: [refreshJobId], references: [id])
+
+  @@index([offerId, observedAt])
+}
+
+model RefreshJob {
+  id           Int       @id @default(autoincrement())
+  provider     String
+  trigger      String    @default("MANUAL") // MANUAL | SCHEDULED
+  status       String    @default("RUNNING") // RUNNING | SUCCESS | PARTIAL | FAILED | SKIPPED
+  startedAt    DateTime  @default(now())
+  finishedAt   DateTime?
+  processed    Int       @default(0)
+  succeeded    Int       @default(0)
+  failed       Int       @default(0)
+  errorSummary String?
+  history      PriceHistory[]
+
+  @@index([startedAt])
+}

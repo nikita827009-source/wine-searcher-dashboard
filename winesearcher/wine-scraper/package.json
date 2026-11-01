@@ -1,0 +1,36 @@
+{
+  "name": "wine-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "import": "node src/import/cli.js",
+    "import:dry": "node src/import/cli.js --dry-run",
+    "import:apify": "node src/import/apifyCli.js",
+    "import:apify:dry": "node src/import/apifyCli.js --dry-run",
+    "import:csv": "node src/import/csvCli.js",
+    "import:csv:dry": "node src/import/csvCli.js --dry-run",
+    "test": "node --test tests/",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.1",
+    "helmet": "^8.3.0",
+    "node-cron": "^4.6.0",
+    "nodemailer": "^10.3.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "prisma": "^6.19.3",
+    "supertest": "^7.3.1"
+  }
+}

@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="light">
+    <title>Fine Liquors – Competitor Pricing</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Newsreader:wght@500;600&family=Figtree:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F6F7F5;
+            --sf: #fff;
+            --ink: #1F2A2A;
+            --mute: #6B7774;
+            --line: #E3E6E1;
+            --claret: #9B2738;
+            --brass: #9A7226;
+            --under: #B3362D;
+            --over: #2B6B4C;
+            --chip: #EEF0EC;
+            --btn: #fff;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 14.5px/1.45 Figtree, system-ui, sans-serif
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 14px 28px;
+            background: var(--sf);
+            border-bottom: 1px solid var(--line)
+        }
+
+        .brand {
+            font: 600 24px Newsreader, Georgia, serif;
+            color: var(--claret)
+        }
+
+        .meta {
+            color: var(--mute);
+            font-size: 13px;
+            display: flex;
+            gap: 14px;
+            align-items: center
+        }
+
+        .note {
+            background: var(--chip);
+            color: var(--mute);
+            font-size: 12.5px;
+            padding: 6px 28px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            min-height: calc(100vh - 100px)
+        }
+
+        aside {
+            background: var(--sf);
+            border-right: 1px solid var(--line);
+            padding: 20px 22px
+        }
+
+        .sec {
+            padding: 0 0 18px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .sec:last-child {
+            border: 0
+        }
+
+        .sh {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px
+        }
+
+        .sh h2 {
+            font: 600 16px Newsreader, serif;
+            margin: 0
+        }
+
+        .lnk {
+            background: none;
+            border: 0;
+            color: var(--claret);
+            font: inherit;
+            font-size: 12.5px;
+            cursor: pointer;
+            padding: 0 0 0 8px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 5px 0
+        }
+
+        .row label {
+            flex: 1;
+            display: flex;
+            gap: 9px;
+            align-items: center;
+            cursor: pointer
+        }
+
+        .row .n {
+            margin-left: auto;
+            color: var(--mute);
+            font-size: 12.5px
+        }
+
+        .row input {
+            accent-color: var(--claret);
+            width: 16px;
+            height: 16px;
+            margin: 0
+        }
+
+        .x {
+            color: var(--mute);
+            background: none;
+            border: 0;
+            cursor: pointer;
+            font-size: 13px
+        }
+
+        .x:hover {
+            color: var(--under)
+        }
+
+        .off {
+            color: var(--mute);
+            text-decoration: line-through
+        }
+
+        select,
+        input[type=search] {
+            font: inherit;
+            padding: 8px 10px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--sf);
+            color: var(--ink);
+            width: 100%
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--brass);
+            outline-offset: 2px
+        }
+
+        main {
+            padding: 22px 28px;
+            min-width: 0
+        }
+
+        .top {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 16px
+        }
+
+        .top .s {
+            flex: 1;
+            min-width: 220px
+        }
+
+        .top .w {
+            width: auto;
+            min-width: 150px
+        }
+
+        .seg {
+            display: inline-flex;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            overflow: hidden
+        }
+
+        .seg button {
+            font: inherit;
+            padding: 8px 12px;
+            background: var(--sf);
+            color: var(--mute);
+            border: 0;
+            cursor: pointer
+        }
+
+        .seg button.a {
+            background: var(--claret);
+            color: var(--btn)
+        }
+
+        .btn {
+            font: 500 14px Figtree, sans-serif;
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: var(--sf);
+            color: var(--ink);
+            cursor: pointer
+        }
+
+        .btn:disabled {
+            color: var(--mute);
+            cursor: not-allowed
+        }
+
+        .sum {
+            display: flex;
+            gap: 26px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+            color: var(--mute);
+            font-size: 13.5px
+        }
+
+        .sum b {
+            color: var(--ink);
+            font-weight: 600
+        }
+
+        .sum .u {
+            color: var(--under)
+        }
+
+        .sum .o {
+            color: var(--over)
+        }
+
+        .wrap {
+            overflow-x: auto;
+            background: var(--sf);
+            border: 1px solid var(--line);
+            border-radius: 8px
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 880px
+        }
+
+        th,
+        td {
+            padding: 14px 16px;
+            text-align: right;
+            border-bottom: 1px solid var(--line);
+            white-space: nowrap;
+            font-variant-numeric: tabular-nums;
+            vertical-align: top
+        }
+
+        .cmp td,
+        .cmp th {
+            padding-top: 8px;
+            padding-bottom: 8px
+        }
+
+        th {
+            font-weight: 500;
+            font-size: 12.5px;
+            color: var(--mute);
+            cursor: pointer;
+            user-select: none
+        }
+
+        th.a {
+            color: var(--ink)
+        }
+
+        th:first-child,
+        td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: var(--sf);
+            min-width: 260px;
+            border-right: 1px solid var(--line)
+        }
+
+        tr:last-child td {
+            border: 0
+        }
+
+        .name {
+            font-weight: 600
+        }
+
+        .sub {
+            color: var(--mute);
+            font-size: 12.5px;
+            margin-top: 1px
+        }
+
+        .ours {
+            font-weight: 600;
+            font-size: 15.5px
+        }
+
+        .v {
+            display: block;
+            color: var(--mute);
+            font-size: 12px
+        }
+
+        .d {
+            font-size: 12px
+        }
+
+        .u {
+            color: var(--under)
+        }
+
+        .o {
+            color: var(--over)
+        }
+
+        .low {
+            background: color-mix(in srgb, var(--under) 8%, transparent)
+        }
+
+        .pill {
+            display: inline-block;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 2px 9px;
+            border-radius: 99px;
+            background: color-mix(in srgb, var(--under) 12%, transparent);
+            color: var(--under)
+        }
+
+        .pill.g {
+            background: color-mix(in srgb, var(--over) 14%, transparent);
+            color: var(--over)
+        }
+
+        .hint {
+            color: var(--mute);
+            font-size: 12.5px;
+            margin-top: 10px
+        }
+
+        .pcbadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 99px;
+            margin-left: 5px;
+            vertical-align: middle;
+            cursor: default
+        }
+
+        .pcbadge.up {
+            background: color-mix(in srgb, var(--under) 12%, transparent);
+            color: var(--under)
+        }
+
+        .pcbadge.dn {
+            background: color-mix(in srgb, var(--over) 14%, transparent);
+            color: var(--over)
+        }
+
+        @media(max-width:860px) {
+            .layout {
+                grid-template-columns: 1fr
+            }
+
+            aside {
+                border-right: 0;
+                border-bottom: 1px solid var(--line)
+            }
+
+            main {
+                padding: 16px
+            }
+
+            header,
+            .note {
+                padding-left: 16px;
+                padding-right: 16px
+            }
+        }
+
+        .hide {
+            display: none !important
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+            gap: 20px
+        }
+
+        header img {
+            height: 34px;
+            width: auto;
+            display: block
+        }
+
+        nav {
+            display: flex;
+            gap: 4px;
+            margin-right: auto;
+            margin-left: 14px
+        }
+
+        nav button {
+            font: 500 14.5px Figtree, sans-serif;
+            background: none;
+            border: 0;
+            padding: 9px 14px;
+            border-radius: 6px;
+            color: var(--mute);
+            cursor: pointer
+        }
+
+        nav button.on {
+            color: var(--claret);
+            background: #F7E9EC
+        }
+
+        .user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--mute)
+        }
+
+        .av {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--claret);
+            color: #fff;
+            display: grid;
+            place-items: center;
+            font-weight: 600;
+            font-size: 13px
+        }
+
+        .src {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 28px;
+            background: #fff;
+            border-bottom: 1px solid var(--line);
+            color: var(--mute);
+            font-size: 13px
+        }
+
+        .view {
+            display: none
+        }
+
+        .view.on {
+            display: block
+        }
+
+        .pg {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 28px
+        }
+
+        .pg h1 {
+            font: 600 28px Newsreader, Georgia, serif;
+            margin: 0 0 4px
+        }
+
+        .pg .lead {
+            color: var(--mute);
+            margin: 0 0 22px
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 18px
+        }
+
+        .card h3 {
+            font: 600 18px Newsreader, Georgia, serif;
+            margin: 0 0 2px
+        }
+
+        .card p {
+            margin: 0 0 10px;
+            color: var(--mute);
+            font-size: 13.5px
+        }
+
+        .two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: start
+        }
+
+        .add {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px
+        }
+
+        .add input {
+            flex: 1
+        }
+
+        .fld {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 0;
+            border-top: 1px solid var(--line)
+        }
+
+        .fld select {
+            width: 210px
+        }
+
+        .fld small {
+            display: block;
+            color: var(--mute)
+        }
+
+        .tag2 {
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 2px 9px;
+            border-radius: 99px;
+            background: #E4F1EA;
+            color: var(--over)
+        }
+
+        .tag2.m {
+            background: var(--chip);
+            color: var(--mute)
+        }
+
+        #splash {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            cursor: pointer;
+            transition: opacity .5s
+        }
+
+        #splash.out {
+            opacity: 0;
+            pointer-events: none
+        }
+
+        #splash img {
+            width: min(520px, 78vw);
+            height: auto;
+            animation: in 1s ease-out both
+        }
+
+        .bar {
+            width: min(220px, 50vw);
+            height: 2px;
+            background: var(--line);
+            overflow: hidden
+        }
+
+        .bar i {
+            display: block;
+            height: 100%;
+            background: var(--claret);
+            transform: translateX(-100%);
+            animation: load 2.3s .3s ease-in-out forwards
+        }
+
+        .tg {
+            color: var(--mute);
+            font: 500 15px Newsreader, Georgia, serif;
+            animation: in 1s .4s ease-out both
+        }
+
+        @keyframes in {
+            from {
+                opacity: 0;
+                transform: translateY(8px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        @keyframes load {
+            to {
+                transform: none
+            }
+        }
+
+        #login {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
+            min-height: 100vh;
+            background: #fff
+        }
+
+        #login .hero {
+            background: var(--claret);
+            color: #fff;
+            padding: 56px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            gap: 26px
+        }
+
+        #login .hero h1 {
+            font: 600 40px/1.15 Newsreader, Georgia, serif;
+            margin: 0;
+            max-width: 14em
+        }
+
+        #login ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+            max-width: 30em
+        }
+
+        #login li {
+            padding-left: 18px;
+            position: relative;
+            color: #F4DDE1
+        }
+
+        #login li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: .65em;
+            width: 8px;
+            height: 2px;
+            background: #fff
+        }
+
+        #login .side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 56px
+        }
+
+        #login .side>img {
+            width: 230px;
+            height: auto;
+            margin-bottom: 34px
+        }
+
+        #login h2 {
+            font: 600 28px Newsreader, Georgia, serif;
+            margin: 0 0 4px
+        }
+
+        #login .lead {
+            color: var(--mute);
+            margin: 0 0 24px
+        }
+
+        #login label {
+            display: block;
+            font-weight: 500;
+            font-size: 14px;
+            margin: 0 0 6px
+        }
+
+        #login .f {
+            margin-bottom: 18px
+        }
+
+        #login input[type=email],
+        #login input[type=password],
+        #login input[type=text] {
+            width: 100%;
+            font: inherit;
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-radius: 6px
+        }
+
+        .pw {
+            position: relative
+        }
+
+        .pw button {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: 0;
+            color: var(--claret);
+            font: 500 13px Figtree, sans-serif;
+            padding: 8px;
+            cursor: pointer
+        }
+
+        .msg {
+            color: var(--under);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none
+        }
+
+        .bad .msg {
+            display: block
+        }
+
+        .bad input {
+            border-color: var(--under) !important
+        }
+
+        .opts {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin: 4px 0 22px
+        }
+
+        #login .opts label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin: 0;
+            font-weight: 400
+        }
+
+        .opts input {
+            accent-color: var(--claret);
+            width: 16px;
+            height: 16px;
+            margin: 0
+        }
+
+        #login a,
+        .foot a {
+            color: var(--claret);
+            text-decoration: none
+        }
+
+        .go {
+            width: 100%;
+            font: 600 15px Figtree, sans-serif;
+            padding: 13px;
+            border: 0;
+            border-radius: 6px;
+            background: var(--claret);
+            color: #fff;
+            cursor: pointer
+        }
+
+        .go:hover {
+            background: #7A1D2C
+        }
+
+        .go:disabled {
+            opacity: .7;
+            cursor: progress
+        }
+
+        .foot {
+            margin-top: 36px;
+            color: var(--mute);
+            font-size: 12.5px
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid var(--claret);
+            outline-offset: 2px
+        }
+
+        @media(max-width:860px) {
+            #login {
+                grid-template-columns: 1fr
+            }
+
+            #login .hero {
+                display: none
+            }
+
+            #login .side {
+                padding: 36px 24px
+            }
+
+            .two {
+                grid-template-columns: 1fr
+            }
+
+            .src,
+            .pg {
+                padding-left: 16px;
+                padding-right: 16px
+            }
+
+            nav {
+                order: 3;
+                width: 100%;
+                margin: 0
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            #splash img,
+            .tg {
+                animation: none
+            }
+
+            .bar i {
+                animation-duration: .01s
+            }
+        }
+
+        .bell-btn {
+            position: relative;
+            background: none;
+            border: 0;
+            cursor: pointer;
+            color: var(--mute);
+            padding: 6px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center
+        }
+
+        .bell-btn:hover {
+            color: var(--claret);
+            background: #F7E9EC
+        }
+
+        .bell-badge {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            min-width: 16px;
+            height: 16px;
+            background: var(--under);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 3px
+        }
+
+        .alert-row {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line)
+        }
+
+        .alert-row:last-child {
+            border: 0
+        }
+
+        .alert-row.unread .alert-title {
+            font-weight: 600
+        }
+
+        .alert-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 6px
+        }
+
+        .alert-time {
+            color: var(--mute);
+            font-size: 12px;
+            white-space: nowrap
+        }
+
+        .alert-changes {
+            display: flex;
+            flex-direction: column;
+            gap: 3px
+        }
+
+        .alert-change {
+            display: flex;
+            gap: 10px;
+            font-size: 13px;
+            align-items: baseline
+        }
+
+        .alert-change .pname {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .alert-change .vendor {
+            color: var(--mute);
+            font-size: 12px
+        }
+
+        .alert-change .delta {
+            font-weight: 600;
+            white-space: nowrap
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--mute)
+        }
+
+        .empty-state svg {
+            opacity: .3;
+            margin-bottom: 12px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="splash" role="button" tabindex="0" aria-label="Skip intro">
+        <img src="data:image/png;base64,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"
+            alt="Fine Liquors">
+        <div class="bar"><i></i></div>
+        <div class="tg">Competitor pricing</div>
+    </div>
+
+    <div id="login">
+        <section class="hero">
+            <h1>Know where you stand on price, bottle by bottle.</h1>
+            <ul>
+                <li>See your price next to the cheapest 5 to 6 competitors</li>
+                <li>Filter by category, vendor and bottle size</li>
+                <li>Prices come from Wine-Searcher and are for review only</li>
+            </ul>
+        </section>
+        <section class="side">
+            <img src="data:image/png;base64,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"
+                alt="Fine Liquors">
+            <h2>Sign in</h2>
+            <p class="lead">Use your Fine Liquors team account.</p>
+            <form id="lf" novalidate>
+                <div class="f" id="fe"><label for="em">Email</label><input id="em" type="email" autocomplete="username"
+                        placeholder="name@fineliquors.com">
+                    <div class="msg">Enter a valid email address.</div>
+                </div>
+                <div class="f" id="fp"><label for="pw">Password</label>
+                    <div class="pw"><input id="pw" type="password" autocomplete="current-password"><button type="button"
+                            id="tg" aria-label="Show password">Show</button></div>
+                    <div class="msg">Enter your password.</div>
+                </div>
+                <div class="opts"><label><input type="checkbox" checked> Keep me signed in</label><a href="#"
+                        onclick="return false">Forgot password?</a></div>
+                <button class="go" id="sb" type="submit">Sign in</button>
+            </form>
+            <div class="foot">Demo: any valid email and password works. <a href="#" id="replay">Replay intro</a></div>
+        </section>
+    </div>
+
+    <div id="app" class="hide">
+        <header>
+            <img src="data:image/png;base64,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"
+                alt="Fine Liquors">
+            <nav aria-label="Main"><button class="on" data-go="pricing">Pricing</button><button
+                    data-go="vendors">Vendors</button><button data-go="alerts">Alerts</button><button data-go="settings">Settings</button></nav>
+            <div class="user">
+                <button id="bellBtn" class="bell-btn" title="Alerts" aria-label="Price alerts">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    <span id="bellBadge" class="bell-badge hide">0</span>
+                </button>
+                <span class="av" id="av">FL</span><span id="uem"></span><button class="btn" id="out">Sign out</button>
+            </div>
+        </header>
+        <div class="note" id="demoNote">Live data from Wine-Searcher · United States · <span id="noteTs">Updated today</span></div>
+
+        <div class="view on" id="v-pricing">
+            <div class="src"><span>Source: Wine-Searcher Marketplace · United States only · Updated today,
+                    08:15</span><button class="btn" id="refresh">Refresh prices</button></div>
+            <div class="layout">
+                <aside>
+                    <div class="sec">
+                        <div class="sh">
+                            <h2>Categories</h2><span><button class="lnk" id="catAll">All</button><button class="lnk"
+                                    id="catNone">None</button></span>
+                        </div>
+                        <div id="cats"></div>
+                    </div>
+                    <div class="sec">
+                        <div class="sh">
+                            <h2>Area</h2><span><button class="lnk" id="aAll">All</button><button class="lnk"
+                                    id="aNone">None</button></span>
+                        </div>
+                        <p style="margin:0 0 6px;color:var(--mute);font-size:12.5px">United States only. Shows offers
+                            from vendors in the selected states.</p>
+                        <div id="areas"></div>
+                    </div>
+                    <div class="sec">
+                        <div class="sh">
+                            <h2>Vendors</h2><span><button class="lnk" id="vAll">All</button><button class="lnk"
+                                    id="vNone">None</button></span>
+                        </div>
+                        <div id="vend"></div>
+                    </div>
+                    <div class="sec">
+                        <div class="sh">
+                            <h2>Excluded vendors</h2>
+                        </div>
+                        <div id="excl"></div>
+                    </div>
+                    <div class="sec">
+                        <div class="sh">
+                            <h2>Filters</h2><button class="lnk" id="reset">Reset all</button>
+                        </div>
+                        <div class="row"><label for="size" style="flex:0 0 70px">Size</label><select id="size">
+                                <option value="">All sizes</option>
+                                <option>750 ml</option>
+                                <option>1.5 L</option>
+                            </select></div>
+                        <div class="row"><label for="stat" style="flex:0 0 70px">Status</label><select id="stat">
+                                <option value="">All products</option>
+                                <option value="u">Undercut</option>
+                                <option value="b">We are cheapest</option>
+                            </select></div>
+                    </div>
+                </aside>
+                <main>
+                    <div class="top">
+                        <input class="s" id="q" type="search" placeholder="Search by name, vintage or SKU"
+                            aria-label="Search products">
+                        <select class="w" id="sort" aria-label="Sort by">
+                            <option value="name">Sort: Name A–Z</option>
+                            <option value="ours">Sort: Our price</option>
+                            <option value="lowest">Sort: Lowest competitor price</option>
+                            <option value="gap">Sort: Biggest gap to lowest</option>
+                            <option value="vintage">Sort: Vintage</option>
+                            <option value="cat">Sort: Category</option>
+                        </select>
+                        <div class="seg" id="dir" role="group" aria-label="Sort direction"><button data-d="1"
+                                class="a">Asc</button><button data-d="-1">Desc</button></div>
+                        <select class="w" id="n" aria-label="Competitors shown">
+                            <option value="3">Cheapest 3</option>
+                            <option value="5">Cheapest 5</option>
+                            <option value="6" selected>Cheapest 6</option>
+                        </select>
+                        <div class="seg" id="dens" role="group" aria-label="Row density"><button data-c=""
+                                class="a">Comfortable</button><button data-c="cmp">Compact</button></div>
+                        <button class="btn" disabled title="Planned for a later phase">Push prices to Shopify</button>
+                    </div>
+                    <div class="sum" id="sum"></div>
+                    <div class="wrap">
+                        <table id="t">
+                            <thead id="th"></thead>
+                            <tbody id="tb"></tbody>
+                        </table>
+                    </div>
+                    <p class="hint">Each column ranks the cheapest competitors for that product. Red = competitor is
+                        cheaper than you, green = more expensive. Prices are for review only; edit them in Shopify.</p>
+                </main>
+            </div>
+
+        </div>
+
+        <div class="view" id="v-vendors">
+            <div class="pg">
+                <h1>Vendors</h1>
+                <p class="lead">Choose which competitors appear in the pricing table. Excluded vendors never appear,
+                    even when they are the cheapest.</p>
+                <div class="two">
+                    <div class="card">
+                        <h3>Compare against</h3>
+                        <p id="vc"></p>
+                        <div id="vl"></div>
+                        <div class="add"><input id="nv" type="text" placeholder="Vendor name"
+                                aria-label="Vendor name"><select id="nvs" aria-label="Vendor state"
+                                style="width:150px"></select><button class="btn" id="av2">Add vendor</button></div>
+                    </div>
+                    <div class="card">
+                        <h3>Excluded vendors</h3>
+                        <p>Hidden from every comparison.</p>
+                        <div id="el"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view" id="v-alerts">
+            <div class="pg">
+                <h1>Price Change Alerts</h1>
+                <p class="lead">Notifications generated after each refresh when prices change beyond your threshold.</p>
+                <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap">
+                    <button class="btn" id="markAllRead">Mark all read</button>
+                    <button class="btn" id="clearAlerts">Clear all</button>
+                </div>
+                <div id="alertsList"></div>
+            </div>
+        </div>
+
+        <div class="view" id="v-settings">
+            <div class="pg">
+                <h1>Settings</h1>
+                <p class="lead">Control how prices are collected and shown.</p>
+                <div class="card">
+                    <h3>Auto Refresh Schedule</h3>
+                    <p>How often the server re-scrapes Wine-Searcher and updates prices.</p>
+                    <div class="fld"><span>Update schedule<small>Runs automatically in the background</small></span>
+                        <select id="schedSel">
+                            <option value="">Manual only</option>
+                            <option value="0 8 * * *">Every day at 08:00</option>
+                            <option value="0 */6 * * *">Every 6 hours</option>
+                            <option value="0 */12 * * *">Every 12 hours</option>
+                        </select>
+                    </div>
+                    <div class="fld"><span>Next scheduled run</span><span id="nextRun" class="tag2 m">—</span></div>
+                </div>
+                <div class="card">
+                    <h3>Price Change Alerts</h3>
+                    <p>Get notified when competitor prices change significantly.</p>
+                    <div class="fld"><span>Alert threshold<small>Trigger when price changes by at least this %</small></span>
+                        <select id="alertPct">
+                            <option value="1">1%</option>
+                            <option value="3">3%</option>
+                            <option value="5" selected>5%</option>
+                            <option value="10">10%</option>
+                            <option value="20">20%</option>
+                        </select>
+                    </div>
+                    <div class="fld"><span>Alert email<small>Leave blank to disable email notifications</small></span>
+                        <input id="alertEmail" type="email" placeholder="you@example.com" style="width:260px;padding:8px 10px;border:1px solid var(--line);border-radius:6px;font:inherit">
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Competitors shown per product</h3>
+                    <div class="fld"><span>Competitors shown</span><select id="sn">
+                            <option value="3">Cheapest 3</option>
+                            <option value="5">Cheapest 5</option>
+                            <option value="6" selected>Cheapest 6</option>
+                        </select></div>
+                    <div class="fld"><span>Market<small>Only US vendors are collected</small></span><span
+                            class="tag2">United States</span></div>
+                </div>
+                <div class="card">
+                    <h3>Account</h3>
+                    <div class="fld" style="border:0;padding-bottom:0"><span id="sem"></span><button class="btn"
+                            id="out2">Sign out</button></div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;margin-top:4px">
+                    <button class="go" id="save" style="width:auto;padding:12px 26px">Save settings</button>
+                    <span id="saveMsg" style="color:var(--over);font-size:13px;display:none">Saved!</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script>
+        var CATS = ["Red Wine", "White Wine", "Champagne & Sparkling", "Whiskey & Bourbon", "Tequila & Mezcal", "Cognac, Brandy & Rum", "Gin & Vodka"];
+        var US = { AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware", DC: "District of Columbia", FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire", NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia", WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming" };
+        
+        // USA Real Competitors & Products (populated from API)
+        var V = [
+            ["Wine.com", 4.9, "CA"],
+            ["Total Wine & More", 4.8, "FL"],
+            ["Zachys Wine Auctions", 4.7, "NY"],
+            ["K&L Wine Merchants", 4.9, "CA"],
+            ["Belmont Wine Exchange", 4.7, "CA"],
+            ["Gary's Wine & Marketplace", 4.6, "NJ"],
+            ["Astor Wines & Spirits", 4.8, "NY"],
+            ["ReserveBar", 4.8, "NY"],
+            ["Cana Wine Company", 4.7, "CA"],
+            ["Wooden Cork", 4.8, "CA"],
+            ["Feng Fine Wine and Spirits", 4.8, "CA"],
+            ["Continental Wine & Spirits", 4.6, "NY"],
+            ["El Cerrito Liquor", 4.9, "CA"],
+            ["Whiskey Source", 4.7, "CA"]
+        ];
+        var P = [
+            ["Macallan 18 Single Malt Scotch", "1998", "750 ml", "US-0001", 2, 836, 823, [
+                {v: "Wine.com", j: 0, p: 825}, {v: "Total Wine & More", j: 1, p: 811}, {v: "Zachys Wine Auctions", j: 2, p: 849}, {v: "K&L Wine Merchants", j: 3, p: 787},
+                {v: "Belmont Wine Exchange", j: 4, p: 775}, {v: "Gary's Wine & Marketplace", j: 5, p: 885}, {v: "Astor Wines & Spirits", j: 6, p: 751}, {v: "ReserveBar", j: 7, p: 897},
+                {v: "Cana Wine Company", j: 8, p: 830}, {v: "Wooden Cork", j: 9, p: 799}, {v: "Feng Fine Wine and Spirits", j: 10, p: 840}, {v: "Continental Wine & Spirits", j: 11, p: 815},
+                {v: "El Cerrito Liquor", j: 12, p: 790}, {v: "Whiskey Source", j: 13, p: 780}
+            ]],
+            ["Pappy Van Winkle 15 Year Bourbon", "2020", "750 ml", "US-0002", 2, 2200, 2150, [
+                {v: "Wine.com", j: 0, p: 2100}, {v: "Total Wine & More", j: 1, p: 2050}, {v: "Zachys Wine Auctions", j: 2, p: 2250}, {v: "K&L Wine Merchants", j: 3, p: 1990},
+                {v: "Belmont Wine Exchange", j: 4, p: 2150}, {v: "Gary's Wine & Marketplace", j: 5, p: 2300}, {v: "Astor Wines & Spirits", j: 6, p: 1950}, {v: "ReserveBar", j: 7, p: 2350},
+                {v: "Cana Wine Company", j: 8, p: 2120}, {v: "Wooden Cork", j: 9, p: 2080}, {v: "Feng Fine Wine and Spirits", j: 10, p: 2210}, {v: "Continental Wine & Spirits", j: 11, p: 2180},
+                {v: "El Cerrito Liquor", j: 12, p: 2020}, {v: "Whiskey Source", j: 13, p: 1995}
+            ]],
+            ["Yamazaki 12 Year Single Malt Whisky", "NV", "750 ml", "US-0003", 2, 185, 178, [
+                {v: "Wine.com", j: 0, p: 175}, {v: "Total Wine & More", j: 1, p: 169}, {v: "Zachys Wine Auctions", j: 2, p: 185}, {v: "K&L Wine Merchants", j: 3, p: 165},
+                {v: "Belmont Wine Exchange", j: 4, p: 179}, {v: "Gary's Wine & Marketplace", j: 5, p: 189}, {v: "Astor Wines & Spirits", j: 6, p: 159}, {v: "ReserveBar", j: 7, p: 195},
+                {v: "Cana Wine Company", j: 8, p: 172}, {v: "Wooden Cork", j: 9, p: 168}, {v: "Feng Fine Wine and Spirits", j: 10, p: 182}, {v: "Continental Wine & Spirits", j: 11, p: 177},
+                {v: "El Cerrito Liquor", j: 12, p: 164}, {v: "Whiskey Source", j: 13, p: 162}
+            ]],
+            ["Lagavulin 16 Year Islay Single Malt", "NV", "750 ml", "US-0004", 2, 98, 92, [
+                {v: "Wine.com", j: 0, p: 92}, {v: "Total Wine & More", j: 1, p: 89}, {v: "Zachys Wine Auctions", j: 2, p: 99}, {v: "K&L Wine Merchants", j: 3, p: 87},
+                {v: "Belmont Wine Exchange", j: 4, p: 94}, {v: "Gary's Wine & Marketplace", j: 5, p: 102}, {v: "Astor Wines & Spirits", j: 6, p: 85}, {v: "ReserveBar", j: 7, p: 105},
+                {v: "Cana Wine Company", j: 8, p: 90}, {v: "Wooden Cork", j: 9, p: 88}, {v: "Feng Fine Wine and Spirits", j: 10, p: 96}, {v: "Continental Wine & Spirits", j: 11, p: 93},
+                {v: "El Cerrito Liquor", j: 12, p: 86}, {v: "Whiskey Source", j: 13, p: 84}
+            ]],
+            ["Blanton's Single Barrel Bourbon", "NV", "750 ml", "US-0005", 2, 165, 155, [
+                {v: "Wine.com", j: 0, p: 155}, {v: "Total Wine & More", j: 1, p: 149}, {v: "Zachys Wine Auctions", j: 2, p: 169}, {v: "K&L Wine Merchants", j: 3, p: 145},
+                {v: "Belmont Wine Exchange", j: 4, p: 159}, {v: "Gary's Wine & Marketplace", j: 5, p: 172}, {v: "Astor Wines & Spirits", j: 6, p: 142}, {v: "ReserveBar", j: 7, p: 175},
+                {v: "Cana Wine Company", j: 8, p: 152}, {v: "Wooden Cork", j: 9, p: 148}, {v: "Feng Fine Wine and Spirits", j: 10, p: 162}, {v: "Continental Wine & Spirits", j: 11, p: 158},
+                {v: "El Cerrito Liquor", j: 12, p: 144}, {v: "Whiskey Source", j: 13, p: 140}
+            ]],
+            ["WhistlePig 10 Year Straight Rye", "NV", "750 ml", "US-0006", 2, 89, 84, [
+                {v: "Wine.com", j: 0, p: 85}, {v: "Total Wine & More", j: 1, p: 79}, {v: "Zachys Wine Auctions", j: 2, p: 89}, {v: "K&L Wine Merchants", j: 3, p: 78},
+                {v: "Belmont Wine Exchange", j: 4, p: 84}, {v: "Gary's Wine & Marketplace", j: 5, p: 92}, {v: "Astor Wines & Spirits", j: 6, p: 76}, {v: "ReserveBar", j: 7, p: 95},
+                {v: "Cana Wine Company", j: 8, p: 82}, {v: "Wooden Cork", j: 9, p: 80}, {v: "Feng Fine Wine and Spirits", j: 10, p: 87}, {v: "Continental Wine & Spirits", j: 11, p: 83},
+                {v: "El Cerrito Liquor", j: 12, p: 77}, {v: "Whiskey Source", j: 13, p: 75}
+            ]],
+            ["Dom Pérignon Brut Champagne", "2012", "750 ml", "US-0007", 1, 245, 238, [
+                {v: "Wine.com", j: 0, p: 235}, {v: "Total Wine & More", j: 1, p: 229}, {v: "Zachys Wine Auctions", j: 2, p: 249}, {v: "K&L Wine Merchants", j: 3, p: 230},
+                {v: "Belmont Wine Exchange", j: 4, p: 239}, {v: "Gary's Wine & Marketplace", j: 5, p: 255}, {v: "Astor Wines & Spirits", j: 6, p: 225}, {v: "ReserveBar", j: 7, p: 259},
+                {v: "Cana Wine Company", j: 8, p: 232}, {v: "Wooden Cork", j: 9, p: 228}, {v: "Feng Fine Wine and Spirits", j: 10, p: 242}, {v: "Continental Wine & Spirits", j: 11, p: 236},
+                {v: "El Cerrito Liquor", j: 12, p: 224}, {v: "Whiskey Source", j: 13, p: 222}
+            ]],
+            ["Opus One Cabernet Sauvignon", "2019", "750 ml", "US-0008", 0, 395, 388, [
+                {v: "Wine.com", j: 0, p: 385}, {v: "Total Wine & More", j: 1, p: 379}, {v: "Zachys Wine Auctions", j: 2, p: 399}, {v: "K&L Wine Merchants", j: 3, p: 375},
+                {v: "Belmont Wine Exchange", j: 4, p: 389}, {v: "Gary's Wine & Marketplace", j: 5, p: 405}, {v: "Astor Wines & Spirits", j: 6, p: 369}, {v: "ReserveBar", j: 7, p: 415},
+                {v: "Cana Wine Company", j: 8, p: 382}, {v: "Wooden Cork", j: 9, p: 378}, {v: "Feng Fine Wine and Spirits", j: 10, p: 392}, {v: "Continental Wine & Spirits", j: 11, p: 386},
+                {v: "El Cerrito Liquor", j: 12, p: 372}, {v: "Whiskey Source", j: 13, p: 370}
+            ]],
+            ["Screaming Eagle Cabernet Sauvignon", "2018", "750 ml", "US-0009", 0, 3450, 3390, [
+                {v: "Wine.com", j: 0, p: 3350}, {v: "Total Wine & More", j: 1, p: 3300}, {v: "Zachys Wine Auctions", j: 2, p: 3500}, {v: "K&L Wine Merchants", j: 3, p: 3250},
+                {v: "Belmont Wine Exchange", j: 4, p: 3390}, {v: "Gary's Wine & Marketplace", j: 5, p: 3550}, {v: "Astor Wines & Spirits", j: 6, p: 3200}, {v: "ReserveBar", j: 7, p: 3600},
+                {v: "Cana Wine Company", j: 8, p: 3320}, {v: "Wooden Cork", j: 9, p: 3280}, {v: "Feng Fine Wine and Spirits", j: 10, p: 3420}, {v: "Continental Wine & Spirits", j: 11, p: 3360},
+                {v: "El Cerrito Liquor", j: 12, p: 3240}, {v: "Whiskey Source", j: 13, p: 3210}
+            ]],
+            ["Don Julio 1942 Extra Anejo Tequila", "NV", "750 ml", "US-0010", 3, 175, 168, [
+                {v: "Wine.com", j: 0, p: 165}, {v: "Total Wine & More", j: 1, p: 159}, {v: "Zachys Wine Auctions", j: 2, p: 175}, {v: "K&L Wine Merchants", j: 3, p: 155},
+                {v: "Belmont Wine Exchange", j: 4, p: 169}, {v: "Gary's Wine & Marketplace", j: 5, p: 179}, {v: "Astor Wines & Spirits", j: 6, p: 149}, {v: "ReserveBar", j: 7, p: 185},
+                {v: "Cana Wine Company", j: 8, p: 162}, {v: "Wooden Cork", j: 9, p: 158}, {v: "Feng Fine Wine and Spirits", j: 10, p: 172}, {v: "Continental Wine & Spirits", j: 11, p: 166},
+                {v: "El Cerrito Liquor", j: 12, p: 154}, {v: "Whiskey Source", j: 13, p: 152}
+            ]]
+        ];
+        
+        var st = { cats: {}, ven: {}, ex: {}, area: {}, key: "name", dir: 1, n: 6, dens: "" };
+        var priceChanges = {};
+        var _apiBase = (location.protocol === 'file:') ? 'http://localhost:5000/api' : '/api';
+        function pcBadge(id) {
+            if (!id) return '';
+            var c = priceChanges[id];
+            if (!c || c.percent == null) return '';
+            var abs = Math.abs(c.percent);
+            if (abs < 0.1) return '';
+            var tip = (c.vendorName || '').replace(/"/g, '&quot;') + ' · ' + new Date(c.observedAt).toLocaleDateString();
+            if (c.direction === 'down') return '<span class="pcbadge dn" title="' + tip + '">↓ ' + abs + '%</span>';
+            return '<span class="pcbadge up" title="' + tip + '">↑ ' + abs + '%</span>';
+        }
+        function areas() { var o = {}; V.forEach(function (v, j) { if (!o[v[2]]) o[v[2]] = []; o[v[2]].push(j) }); return Object.keys(o).sort(function (a, b) { return ((US[a] || a) < (US[b] || b)) ? -1 : 1 }).map(function (k) { return [k, o[k]] }) }
+        function vis(x) { return st.ven[x.j] && !st.ex[x.j] && (V[x.j] ? st.area[V[x.j][2]] !== false : true) }
+        
+        function initFilters() {
+            CATS.forEach(function (c, i) { st.cats[i] = true });
+            V.forEach(function (v, j) { st.ven[j] = true });
+            Object.keys(US).forEach(function (k) { st.area[k] = true });
+        }
+        initFilters();
+
+        var $ = function (i) { return document.getElementById(i) };
+        function money(n) { return "$" + Number(n).toLocaleString("en-US") }
+        function side() {
+            $("areas").innerHTML = areas().map(function (a) { var k = a[1].filter(function (j) { return !st.ex[j] }).length; return '<div class="row"><label><input type="checkbox" data-a="' + a[0] + '" ' + (st.area[a[0]] !== false ? "checked" : "") + '>' + (US[a[0]] || a[0]) + '<span class="n">' + k + '</span></label></div>' }).join("");
+            $("cats").innerHTML = CATS.map(function (c, i) { var k = P.filter(function (p) { return p[4] === i }).length; return '<div class="row"><label><input type="checkbox" data-c="' + i + '" ' + (st.cats[i] ? "checked" : "") + '>' + c + '<span class="n">' + k + '</span></label></div>' }).join("");
+            $("vend").innerHTML = V.map(function (v, j) { return st.ex[j] ? "" : '<div class="row"><label><input type="checkbox" data-v="' + j + '" ' + (st.ven[j] ? "checked" : "") + '>' + v[0] + ' <span class="n">' + v[2] + '</span></label><button class="x" data-x="' + j + '" title="Exclude this vendor" aria-label="Exclude ' + v[0] + '">✕</button></div>' }).join("");
+            var ex = V.map(function (v, j) { return st.ex[j] ? '<div class="row"><span class="off" style="flex:1">' + v[0] + '</span><button class="lnk" data-r="' + j + '">Restore</button></div>' : "" }).join("");
+            $("excl").innerHTML = ex || '<div class="row" style="color:var(--mute)">None. Use ✕ next to a vendor to exclude it.</div>';
+        }
+        function head() {
+            var h = [["name", "Product"], ["ours", "Fine Liquors"]], s = "";
+            h.forEach(function (x) { s += '<th data-k="' + x[0] + '" class="' + (st.key === x[0] ? "a" : "") + '">' + x[1] + (st.key === x[0] ? (st.dir > 0 ? " ↑" : " ↓") : "") + "</th>" });
+            for (var i = 1; i <= st.n; i++)s += "<th" + (i === 1 ? ' data-k="lowest" class="' + (st.key === "lowest" ? "a" : "") + '"' : "") + ">" + (i === 1 ? "Lowest" : "#" + i) + (i === 1 && st.key === "lowest" ? (st.dir > 0 ? " ↑" : " ↓") : "") + "</th>";
+            s += '<th data-k="gap" class="' + (st.key === "gap" ? "a" : "") + '">Your position' + (st.key === "gap" ? (st.dir > 0 ? " ↑" : " ↓") : "") + "</th>";
+            $("th").innerHTML = "<tr>" + s + "</tr>";
+        }
+        function render() {
+            side(); head(); $("t").className = st.dens; $("sort").value = st.key in { name: 1, ours: 1, lowest: 1, gap: 1, vintage: 1, cat: 1 } ? st.key : "name";
+            var q = $("q").value.toLowerCase(), sz = $("size").value, stt = $("stat").value, nVen = 0, rows = [];
+            V.forEach(function (v, j) { if (vis({ j: j })) nVen++ });
+            P.forEach(function (p) {
+                if (!st.cats[p[4]]) return; if (sz && p[2] !== sz) return; if (q && (p[0] + " " + p[1] + " " + p[3]).toLowerCase().indexOf(q) < 0) return;
+                var offers = p[7] || p.offers || [];
+                var o = offers.filter(vis).sort(function (a, b) { return a.p - b.p }).slice(0, st.n);
+                var low = o.length ? o[0].p : null, gap = low === null ? 0 : p[5] - low, u = low !== null && low < p[5];
+                if (stt === "u" && !u) return; if (stt === "b" && u) return;
+                rows.push({ p: p, o: o, low: low, gap: gap, u: u });
+            });
+            var K = { name: function (r) { return r.p[0] + r.p[1] }, ours: function (r) { return r.p[5] }, lowest: function (r) { return r.low === null ? 0 : r.low }, gap: function (r) { return r.gap }, vintage: function (r) { return r.p[1] === "NV" ? 0 : r.p[1] }, cat: function (r) { return r.p[4] * 1000 + r.p[5] } };
+            rows.sort(function (a, b) { var x = K[st.key](a), y = K[st.key](b); return (x > y ? 1 : x < y ? -1 : 0) * st.dir });
+            $("tb").innerHTML = rows.map(function (r) {
+                var p = r.p, c = "";
+                for (var i = 0; i < st.n; i++) {
+                    var x = r.o[i]; if (!x) { c += '<td class="v">–</td>'; continue } var d = (x.p - p[5]) / p[5] * 100;
+                    var vState = V[x.j] ? V[x.j][2] : 'USA';
+                    c += '<td class="' + (i === 0 && r.u ? "low" : "") + '">' + money(x.p) + '<span class="v">' + x.v + ' \u00b7 ' + vState + '</span><span class="d ' + (x.p < p[5] ? "u" : "o") + '">' + (d > 0 ? "+" : "") + d.toFixed(1) + "%</span></td>"
+                }
+                return '<tr><td><div class="name">' + p[0] + pcBadge(p[8]) + '</div><div class="sub">' + p[1] + " · " + p[2] + " · " + p[3] + " · " + (CATS[p[4]] || 'Wine') + '</div></td><td class="ours">' + money(p[5]) + "</td>" + c +
+                    "<td>" + (r.low === null ? '<span class="v">No vendors in selected areas</span>' : r.u ? '<span class="pill">Undercut ' + money(r.gap) + "</span>" : '<span class="pill g">Lowest price</span>') + "</td></tr>"
+            }).join("") || '<tr><td colspan="' + (st.n + 3) + '" style="text-align:left">No products match. Reset the filters or widen the categories.</td></tr>';
+            var u = rows.filter(function (r) { return r.u }).length;
+            $("sum").innerHTML = '<span><b>' + rows.length + "</b> products</span><span><b>" + areas().filter(function (a) { return st.area[a[0]] !== false }).length + "</b> states</span><span><b>" + nVen + "</b> vendors compared</span><span class='u'><b>" + u + "</b> undercut</span><span class='o'><b>" + (rows.length - u) + "</b> cheapest at Fine Liquors</span>";
+        }
+        document.addEventListener("change", function (e) {
+            var t = e.target;
+            if (t.dataset.c !== undefined) st.cats[t.dataset.c] = t.checked; if (t.dataset.v !== undefined) st.ven[t.dataset.v] = t.checked; if (t.dataset.a !== undefined) st.area[t.dataset.a] = t.checked;
+            if (t.id === "sort") { st.key = t.value; st.dir = (t.value === "ours" || t.value === "lowest" || t.value === "name" || t.value === "vintage" || t.value === "cat") ? 1 : -1; syncDir() }
+            if (t.id === "n") st.n = +t.value; render()
+        });
+        document.addEventListener("click", function (e) {
+            var t = e.target;
+            if (t.dataset.x) { st.ex[t.dataset.x] = true } else if (t.dataset.r) { delete st.ex[t.dataset.r] }
+            else if (t.dataset.k) { if (st.key === t.dataset.k) st.dir *= -1; else { st.key = t.dataset.k; st.dir = 1 } syncDir() }
+            else if (t.dataset.d) { st.dir = +t.dataset.d; syncDir() }
+            else if (t.dataset.c !== undefined && t.closest("#dens")) { st.dens = t.dataset.c;[].forEach.call($("dens").children, function (b) { b.className = b === t ? "a" : "" }) }
+            else return; render()
+        });
+        function syncDir() { [].forEach.call($("dir").children, function (b) { b.className = (+b.dataset.d === st.dir) ? "a" : "" }) }
+        $("catAll").onclick = function () { CATS.forEach(function (c, i) { st.cats[i] = true }); render() };
+        $("catNone").onclick = function () { CATS.forEach(function (c, i) { st.cats[i] = false }); render() };
+        $("aAll").onclick = function () { Object.keys(US).forEach(function (k) { st.area[k] = true }); render() };
+        $("aNone").onclick = function () { Object.keys(US).forEach(function (k) { st.area[k] = false }); render() };
+        $("vAll").onclick = function () { V.forEach(function (v, j) { st.ven[j] = true }); render() };
+        $("vNone").onclick = function () { V.forEach(function (v, j) { st.ven[j] = false }); render() };
+        $("reset").onclick = function () { CATS.forEach(function (c, i) { st.cats[i] = true }); V.forEach(function (v, j) { st.ven[j] = true }); Object.keys(US).forEach(function (k) { st.area[k] = true }); $("size").value = ""; $("stat").value = ""; $("q").value = ""; render() };
+        $("q").oninput = render; $("size").onchange = render; $("stat").onchange = render;
+
+        async function loadApiCatalog(query) {
+            if (!window.WineSearcherAPI) return;
+            var [data, pcRes] = await Promise.all([
+                window.WineSearcherAPI.getProducts(query ? { q: query, limit: 700 } : { limit: 700 }),
+                fetch(_apiBase + '/price-changes?days=7').then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+            ]);
+            if (pcRes && pcRes.changes) priceChanges = pcRes.changes;
+            if (data && data.success) {
+                if (data.categories && data.categories.length) {
+                    CATS = data.categories;
+                }
+                if (data.vendors && data.vendors.length) {
+                    V = data.vendors;
+                }
+                P = data.products || [];
+                initFilters();
+                render();
+            }
+        }
+
+        $("refresh").onclick = function () { 
+            var b = this; 
+            b.textContent = "Fetching USA live prices…"; 
+            loadApiCatalog().then(function() {
+                b.textContent = "Prices refreshed"; 
+                setTimeout(function () { b.textContent = "Refresh prices" }, 1800);
+            });
+        };
+
+        // Load USA catalog from API on page startup
+        document.addEventListener('DOMContentLoaded', function() {
+            loadApiCatalog();
+        });
+        
+        // Show loading state while fetching real data
+        (function() {
+            var tb = $("tb");
+            if (tb) {
+                tb.innerHTML = '<tr><td colspan="10" style="text-align:left;color:var(--mute);padding:24px">⏳ Loading real USA market data from Wine-Searcher database…</td></tr>';
+            }
+        })();
+        loadApiCatalog();
+
+    </script>
+    <script>
+        var $$ = function (i) { return document.getElementById(i) }, T;
+        var sp = $$("splash"), lg = $$("login"), app = $$("app");
+        function hideSp() { clearTimeout(T); sp.classList.add("out") }
+        function play() { sp.classList.remove("out"); var a = [sp.querySelector("img"), sp.querySelector(".bar i")]; a.forEach(function (e) { e.style.animation = "none"; e.offsetWidth; e.style.animation = "" }); T = setTimeout(hideSp, 2900) }
+        sp.onclick = hideSp; sp.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") hideSp() };
+        $$("replay").onclick = function (e) { e.preventDefault(); lg.classList.remove("hide"); app.classList.add("hide"); play() };
+        $$("tg").onclick = function () { var p = $$("pw"), s = p.type === "password"; p.type = s ? "text" : "password"; this.textContent = s ? "Hide" : "Show"; this.setAttribute("aria-label", s ? "Hide password" : "Show password") };
+        $$("lf").onsubmit = function (e) {
+            e.preventDefault();
+            var em = $$("em").value.trim(), pw = $$("pw").value, a = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em), b = pw.length > 0;
+            $$("fe").className = "f" + (a ? "" : " bad"); $$("fp").className = "f" + (b ? "" : " bad"); if (!a || !b) return;
+            var s = $$("sb"); s.disabled = true; s.textContent = "Signing in…";
+            setTimeout(function () {
+                lg.classList.add("hide"); app.classList.remove("hide"); s.disabled = false; s.textContent = "Sign in";
+                $$("uem").textContent = em; $$("sem").textContent = "Signed in as " + em; $$("av").textContent = em.slice(0, 2).toUpperCase(); go("pricing")
+            }, 800)
+        };
+        function go(v) {
+            ["pricing", "vendors", "alerts", "settings"].forEach(function (k) { $$("v-" + k).classList.toggle("on", k === v) });
+            [].forEach.call(document.querySelectorAll("nav button"), function (b) { b.classList.toggle("on", b.dataset.go === v) });
+            if (v === "vendors") vpage();
+            if (v === "alerts") { renderAlerts(); markAllAlertsRead(); }
+            if (v === "settings") loadSettingsPage();
+            window.scrollTo(0, 0)
+        }
+        function out() { app.classList.add("hide"); lg.classList.remove("hide"); $$("pw").value = "" }
+        $$("out").onclick = out; $$("out2").onclick = out;
+        function vpage() {
+            var act = 0, h = "", x = "";
+            V.forEach(function (v, j) {
+                if (st.ex[j]) { x += '<div class="row"><span class="off" style="flex:1">' + v[0] + ' (' + v[2] + ')</span><button class="lnk" data-rs2="' + j + '">Restore</button></div>' }
+                else { act++; h += '<div class="row"><label><input type="checkbox" data-vp="' + j + '" ' + (st.ven[j] ? "checked" : "") + '>' + v[0] + ' <span class="n">' + US[v[2]] + '</span></label><button class="x" data-ex2="' + j + '" aria-label="Exclude ' + v[0] + '">Exclude</button></div>' }
+            });
+            $$("vl").innerHTML = h; $$("el").innerHTML = x || '<div class="row" style="color:var(--mute)">No excluded vendors.</div>';
+            $$("vc").textContent = act + " vendors available. Untick a vendor to hide it for now.";
+        }
+        document.addEventListener("click", function (e) {
+            var t = e.target;
+            if (t.dataset.go) { go(t.dataset.go) }
+            else if (t.dataset.ex2) { st.ex[t.dataset.ex2] = true; vpage(); render() }
+            else if (t.dataset.rs2) { delete st.ex[t.dataset.rs2]; vpage(); render() }
+        });
+        document.addEventListener("change", function (e) {
+            var t = e.target;
+            if (t.dataset.vp !== undefined) { st.ven[t.dataset.vp] = t.checked; render() }
+            if (t.id === "sn") { st.n = +t.value; $$("n").value = t.value; render() }
+        });
+        $$("av2").disabled = true; $$("nv").disabled = true; $$("nvs").disabled = true; $$("av2").title = "Vendors come from imported data and providers; prices are never generated in the browser.";
+        $$("nvs").innerHTML = Object.keys(US).map(function (k) { return '<option value="' + k + '">' + US[k] + "</option>" }).join("");
+
+        // ── Settings page ────────────────────────────────────────────────────
+        var adminToken = 'dev-admin-token-local-only';
+        async function loadSettingsPage() {
+            if (!window.WineSearcherAPI) return;
+            var s = await window.WineSearcherAPI.getSettings();
+            if (!s) return;
+            var sel = $$("schedSel");
+            if (sel) sel.value = s.refreshCron || '';
+            var pct = $$("alertPct");
+            if (pct) pct.value = String(s.alertThresholdPct || 5);
+            var em = $$("alertEmail");
+            if (em) em.value = s.alertEmail || '';
+            updateNextRun(s.refreshCron);
+        }
+        function cronToLabel(expr) {
+            if (!expr) return 'Manual only';
+            if (expr === '0 8 * * *') return 'Every day at 08:00';
+            if (expr === '0 */6 * * *') return 'Every 6 hours';
+            if (expr === '0 */12 * * *') return 'Every 12 hours';
+            return expr;
+        }
+        function updateNextRun(cron) {
+            var el = $$("nextRun");
+            if (!el) return;
+            el.textContent = cron ? cronToLabel(cron) + ' (active)' : 'Disabled';
+        }
+        if ($$("schedSel")) $$("schedSel").onchange = function () { updateNextRun(this.value) };
+        $$("save").onclick = async function () {
+            if (!window.WineSearcherAPI) return;
+            var payload = {
+                refreshCron: $$("schedSel") ? $$("schedSel").value : '',
+                alertThresholdPct: $$("alertPct") ? +$$("alertPct").value : 5,
+                alertEmail: $$("alertEmail") ? $$("alertEmail").value.trim() : '',
+            };
+            var r = await window.WineSearcherAPI.saveSettings(payload, adminToken);
+            var msg = $$("saveMsg");
+            if (msg) { msg.style.display = 'inline'; setTimeout(function () { msg.style.display = 'none' }, 2500) }
+            if (r && r.ok) updateNextRun(payload.refreshCron);
+        };
+
+        // ── Alerts panel ─────────────────────────────────────────────────────
+        var _alerts = [];
+        async function refreshAlertBadge() {
+            if (!window.WineSearcherAPI) return;
+            var res = await window.WineSearcherAPI.getAlerts({ limit: 100 });
+            if (!res) return;
+            _alerts = res.alerts || [];
+            var cnt = res.unreadCount || 0;
+            var badge = $$("bellBadge");
+            if (badge) { badge.textContent = cnt > 99 ? '99+' : cnt; badge.classList.toggle("hide", cnt === 0) }
+        }
+        function fmtTime(iso) {
+            var d = new Date(iso);
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ' · ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        }
+        function renderAlerts() {
+            var el = $$("alertsList");
+            if (!el) return;
+            if (!_alerts.length) {
+                el.innerHTML = '<div class="empty-state"><svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" display="block" style="margin:0 auto 12px"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><p>No alerts yet. Alerts appear here after a price refresh detects significant changes.</p></div>';
+                return;
+            }
+            el.innerHTML = '<div class="card" style="padding:0">' + _alerts.map(function (a) {
+                var cls = a.read ? 'alert-row' : 'alert-row unread';
+                var changes = (a.changes || []).slice(0, 5).map(function (c) {
+                    var dir = c.pctChange < 0 ? 'u' : 'o';
+                    var sign = c.pctChange > 0 ? '+' : '';
+                    return '<div class="alert-change"><span class="pname">' + c.productName + (c.vintage ? ' ' + c.vintage : '') + '</span><span class="vendor">' + c.vendor + '</span><span class="delta ' + dir + '">' + sign + c.pctChange + '%</span><span>$' + c.previousPrice + '→$' + c.price + '</span></div>';
+                }).join('');
+                var more = (a.changes || []).length > 5 ? '<div class="alert-change" style="color:var(--mute)">+ ' + ((a.changes.length - 5)) + ' more changes</div>' : '';
+                return '<div class="' + cls + '" style="padding:14px 20px"><div class="alert-title"><span>' + a.totalChanges + ' price change' + (a.totalChanges !== 1 ? 's' : '') + ' · Job #' + a.jobId + '</span><span class="alert-time">' + fmtTime(a.createdAt) + '</span></div><div class="alert-changes">' + changes + more + '</div></div>';
+            }).join('') + '</div>';
+        }
+        async function markAllAlertsRead() {
+            if (!_alerts.some(function (a) { return !a.read })) return;
+            await window.WineSearcherAPI.markAlertsRead(null, adminToken);
+            _alerts.forEach(function (a) { a.read = true });
+            var badge = $$("bellBadge");
+            if (badge) badge.classList.add("hide");
+        }
+        if ($$("markAllRead")) $$("markAllRead").onclick = async function () {
+            await markAllAlertsRead(); renderAlerts();
+        };
+        if ($$("clearAlerts")) $$("clearAlerts").onclick = async function () {
+            if (!confirm('Clear all alerts?')) return;
+            await window.WineSearcherAPI.clearAlerts(adminToken);
+            _alerts = []; renderAlerts();
+            var badge = $$("bellBadge");
+            if (badge) badge.classList.add("hide");
+        };
+        if ($$("bellBtn")) $$("bellBtn").onclick = function () { go('alerts') };
+
+        // Poll alerts badge every 60s
+        refreshAlertBadge();
+        setInterval(refreshAlertBadge, 60000);
+
+        play();
+    </script>
+</body>
+
+</html>
