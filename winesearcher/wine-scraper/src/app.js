@@ -92,7 +92,7 @@ function createApp({ prisma, env = process.env, registry = createRegistry({ env 
     status: z.enum(['DEMO', 'UNVERIFIED', 'VERIFIED', 'STALE', 'FAILED']).optional(),
     missing: z.enum(['true', 'false']).optional(),
     page: z.coerce.number().int().min(1).default(1),
-    pageSize: z.coerce.number().int().min(1).max(100).default(25),
+    pageSize: z.coerce.number().int().min(1).max(500).default(25),
   });
 
   const staleCutoff = () => new Date(now().getTime() - staleHours * 3.6e6);

@@ -54,7 +54,7 @@ async function apiDelete(path, token) {
 /** Fetch a balanced catalog (up to `limit` products across the 7 UI categories) for the classic UI. */
 async function fetchProducts(params) {
     params = params || {};
-    var limit = parseInt(params.limit, 10) || 700;
+    var limit = parseInt(params.limit, 10) || 1000;
     var per = Math.max(25, Math.ceil(limit / UI_CATEGORIES.length));
     var filters = await apiGet('/filters');
     if (!filters) return null;
@@ -67,7 +67,7 @@ async function fetchProducts(params) {
 
     var pages = await Promise.all(groups.map(function (names) {
         if (!names.length) return Promise.resolve({ products: [] });
-        return apiGet('/products', { category: names.join('|'), q: params.q, pageSize: Math.min(per, 100) });
+        return apiGet('/products', { category: names.join('|'), q: params.q, pageSize: Math.min(per, 500) });
     }));
     if (pages.some(function (p) { return p === null; })) return null;
 
