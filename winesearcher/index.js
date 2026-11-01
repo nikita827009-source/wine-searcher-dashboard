@@ -51,11 +51,9 @@ async function apiDelete(path, token) {
     } catch { return false; }
 }
 
-/** Fetch a balanced catalog (up to `limit` products across the 7 UI categories) for the classic UI. */
+/** Fetch ALL products across the 7 UI categories, paginating through every page. */
 async function fetchProducts(params) {
     params = params || {};
-    var limit = parseInt(params.limit, 10) || 1000;
-    var per = Math.max(25, Math.ceil(limit / UI_CATEGORIES.length));
     var filters = await apiGet('/filters');
     if (!filters) return null;
 
@@ -65,20 +63,25 @@ async function fetchProducts(params) {
     var groups = UI_CATEGORIES.map(function () { return []; });
     filters.categories.forEach(function (c) { groups[uiCategoryOf(c.name)].push(c.name); });
 
-    var pages = await Promise.all(groups.map(function (names) {
-        if (!names.length) return Promise.resolve({ products: [] });
-        return apiGet('/products', { category: names.join('|'), q: params.q, pageSize: Math.min(per, 500) });
-    }));
-    if (pages.some(function (p) { return p === null; })) return null;
-
     var products = [];
-    pages.forEach(function (pg) {
-        pg.products.forEach(function (p) {
-            var offers = p.offers.filter(function (o) { return o.comparable; }).map(function (o) { return { v: o.vendor, j: vIdx[o.vendorId], p: o.price }; });
-            var avg = offers.length ? Math.round(offers.reduce(function (a, o) { return a + o.p; }, 0) / offers.length) : p.clientPrice;
-            products.push([p.name, p.vintage || 'NV', p.bottleSize || '750 ml', p.sku, uiCategoryOf(p.category), p.clientPrice, avg, offers, p.id]);
-        });
-    });
+
+    for (var i = 0; i < groups.length; i++) {
+        var names = groups[i];
+        if (!names.length) continue;
+        var page = 1;
+        while (true) {
+            var pg = await apiGet('/products', { category: names.join('|'), q: params.q, page: page, pageSize: 500 });
+            if (!pg) break;
+            pg.products.forEach(function (p) {
+                var offers = p.offers.filter(function (o) { return o.comparable; }).map(function (o) { return { v: o.vendor, j: vIdx[o.vendorId], p: o.price }; });
+                var avg = offers.length ? Math.round(offers.reduce(function (a, o) { return a + o.p; }, 0) / offers.length) : p.clientPrice;
+                products.push([p.name, p.vintage || 'NV', p.bottleSize || '750 ml', p.sku, uiCategoryOf(p.category), p.clientPrice, avg, offers, p.id]);
+            });
+            if (pg.page >= pg.totalPages) break;
+            page++;
+        }
+    }
+
     return { success: true, total: products.length, categories: UI_CATEGORIES, vendors: vendors, products: products };
 }
 
