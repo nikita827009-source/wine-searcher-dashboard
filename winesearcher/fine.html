@@ -1418,12 +1418,7 @@
             });
         };
 
-        // Load USA catalog from API on page startup
-        document.addEventListener('DOMContentLoaded', function() {
-            loadApiCatalog();
-        });
-        
-        // Show loading state while fetching real data
+        // Show loading state, then fetch once
         (function() {
             var tb = $("tb");
             if (tb) {
