@@ -45,14 +45,11 @@ for (const p of raw) {
     const title = (p.title || '').trim();
     if (!title) continue;
 
-    // Use all variants with a valid price (include sold-out)
-    const variants = (p.variants || []).filter(v => parsePrice(v.price));
+    // Only in-stock (available) variants
+    const variants = (p.variants || []).filter(v => v.available && parsePrice(v.price));
     if (!variants.length) { skipped++; continue; }
 
-    // Prefer available variant if one exists; otherwise use cheapest overall
-    const availVariants = variants.filter(v => v.available);
-    const pool = availVariants.length ? availVariants : variants;
-    const cheapest = pool.reduce((a, b) => parsePrice(a.price) <= parsePrice(b.price) ? a : b);
+    const cheapest = variants.reduce((a, b) => parsePrice(a.price) <= parsePrice(b.price) ? a : b);
     const price = parsePrice(cheapest.price);
     if (!price) continue;
 
