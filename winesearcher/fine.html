@@ -1342,28 +1342,53 @@
             side(); head(); $("t").className = st.dens; $("sort").value = st.key in { name: 1, ours: 1, lowest: 1, gap: 1, vintage: 1, cat: 1 } ? st.key : "name";
             var q = $("q").value.toLowerCase(), sz = $("size").value, stt = $("stat").value, nVen = 0, rows = [];
             V.forEach(function (v, j) { if (vis({ j: j })) nVen++ });
+
+            // If user typed a 4-digit year, skip dedup and show all matching vintages
+            var yearSearch = /(19|20)\d{2}/.test(q);
+
+            // Collect all matching products
+            var matched = [];
             P.forEach(function (p) {
                 if (!st.cats[p[4]]) return; if (sz && p[2] !== sz) return; if (q && (p[0] + " " + p[1] + " " + p[3]).toLowerCase().indexOf(q) < 0) return;
                 var offers = p[7] || p.offers || [];
                 var o = offers.filter(vis).sort(function (a, b) { return a.p - b.p }).slice(0, st.n);
                 var low = o.length ? o[0].p : null, gap = low === null ? 0 : p[5] - low, u = low !== null && low < p[5];
                 if (stt === "u" && !u) return; if (stt === "b" && u) return;
-                rows.push({ p: p, o: o, low: low, gap: gap, u: u });
+                matched.push({ p: p, o: o, low: low, gap: gap, u: u });
             });
-            var K = { name: function (r) { return r.p[0] + r.p[1] }, ours: function (r) { return r.p[5] }, lowest: function (r) { return r.low === null ? 0 : r.low }, gap: function (r) { return r.gap }, vintage: function (r) { return r.p[1] === "NV" ? 0 : r.p[1] }, cat: function (r) { return r.p[4] * 1000 + r.p[5] } };
+
+            if (yearSearch) {
+                // Show every vintage individually when user searched a year
+                rows = matched;
+            } else {
+                // Deduplicate: one row per wine name+category — keep latest vintage year; prefer real year over NV
+                var byName = {};
+                matched.forEach(function (r) {
+                    var key = r.p[0].toLowerCase().trim() + '||' + r.p[4];
+                    if (!byName[key]) { byName[key] = r; return; }
+                    var eYear = parseInt(byName[key].p[1], 10) || 0;
+                    var nYear = parseInt(r.p[1], 10) || 0;
+                    if (nYear > eYear) byName[key] = r;
+                });
+                Object.keys(byName).forEach(function (k) { rows.push(byName[k]); });
+            }
+
+            var K = { name: function (r) { return r.p[0] }, ours: function (r) { return r.p[5] }, lowest: function (r) { return r.low === null ? 0 : r.low }, gap: function (r) { return r.gap }, vintage: function (r) { return r.p[1] === "NV" ? "0000" : (r.p[1] || "0000") }, cat: function (r) { return r.p[4] * 1000 + r.p[5] } };
             rows.sort(function (a, b) { var x = K[st.key](a), y = K[st.key](b); return (x > y ? 1 : x < y ? -1 : 0) * st.dir });
             $("tb").innerHTML = rows.map(function (r) {
                 var p = r.p, c = "";
                 for (var i = 0; i < st.n; i++) {
                     var x = r.o[i]; if (!x) { c += '<td class="v">–</td>'; continue } var d = (x.p - p[5]) / p[5] * 100;
                     var vState = V[x.j] ? V[x.j][2] : 'USA';
-                    c += '<td class="' + (i === 0 && r.u ? "low" : "") + '">' + money(x.p) + '<span class="v">' + x.v + ' \u00b7 ' + vState + '</span><span class="d ' + (x.p < p[5] ? "u" : "o") + '">' + (d > 0 ? "+" : "") + d.toFixed(1) + "%</span></td>"
+                    c += '<td class="' + (i === 0 && r.u ? "low" : "") + '">' + money(x.p) + '<span class="v">' + x.v + ' · ' + vState + '</span><span class="d ' + (x.p < p[5] ? "u" : "o") + '">' + (d > 0 ? "+" : "") + d.toFixed(1) + "%</span></td>"
                 }
-                return '<tr><td><div class="name">' + p[0] + pcBadge(p[8]) + '</div><div class="sub">' + p[1] + " · " + p[2] + " · " + p[3] + " · " + (CATS[p[4]] || 'Wine') + '</div></td><td class="ours">' + money(p[5]) + "</td>" + c +
+                var vinLabel = p[1] && p[1] !== 'NV' ? p[1] : 'NV';
+                return '<tr><td><div class="name">' + p[0] + pcBadge(p[8]) + '</div><div class="sub">' + vinLabel + ' · ' + p[2] + ' · ' + p[3] + ' · ' + (CATS[p[4]] || 'Wine') + '</div></td><td class="ours">' + money(p[5]) + "</td>" + c +
                     "<td>" + (r.low === null ? '<span class="v">No vendors in selected areas</span>' : r.u ? '<span class="pill">Undercut ' + money(r.gap) + "</span>" : '<span class="pill g">Lowest price</span>') + "</td></tr>"
             }).join("") || '<tr><td colspan="' + (st.n + 3) + '" style="text-align:left">No products match. Reset the filters or widen the categories.</td></tr>';
             var u = rows.filter(function (r) { return r.u }).length;
-            $("sum").innerHTML = '<span><b>' + rows.length + "</b> products</span><span><b>" + areas().filter(function (a) { return st.area[a[0]] !== false }).length + "</b> states</span><span><b>" + nVen + "</b> vendors compared</span><span class='u'><b>" + u + "</b> undercut</span><span class='o'><b>" + (rows.length - u) + "</b> cheapest at Fine Liquors</span>";
+            var vintageHint = yearSearch ? ' · <span style="color:var(--mute)">showing all vintages for &ldquo;' + q + '&rdquo;</span>' : ' · <span style="color:var(--mute)">tip: search a year (e.g. 2019) to see all vintages</span>';
+            $("sum").innerHTML = '<span><b>' + rows.length + "</b> products</span><span><b>" + areas().filter(function (a) { return st.area[a[0]] !== false }).length + "</b> states</span><span><b>" + nVen + "</b> vendors compared</span><span class='u'><b>" + u + "</b> undercut</span><span class='o'><b>" + (rows.length - u) + "</b> cheapest at Fine Liquors</span>" + vintageHint;
         }
         document.addEventListener("change", function (e) {
             var t = e.target;
